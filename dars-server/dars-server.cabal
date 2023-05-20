@@ -1,0 +1,45 @@
+cabal-version:   3.4
+name:            dars-server
+version:         0.1.0.0
+license:         MIT
+license-file:    LICENSE
+author:          Juan Raphael Diaz Simões
+maintainer:      juanrapha@gmail.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options: -Wall
+
+library
+  import:             warnings
+  exposed-modules:
+    Dars.Prelude
+    Dars.SQL
+
+  build-depends:
+    , aeson
+    , base
+    , hasql
+    , hasql-migration
+    , hasql-transaction
+    , mtl
+    , network-uri
+    , text
+
+  hs-source-dirs:     src
+  default-extensions:
+    DerivingStrategies
+    LambdaCase
+    OverloadedStrings
+  default-language:   GHC2021
+
+executable dars-server
+  import:           warnings
+  main-is:          Main.hs
+  build-depends:
+    , base
+    , dars-server
+
+  hs-source-dirs:   app
+  default-language: GHC2021
