@@ -11,35 +11,76 @@ extra-doc-files: CHANGELOG.md
 common warnings
   ghc-options: -Wall
 
+common extensions
+  default-extensions:
+    NoFieldSelectors
+    DeriveAnyClass
+    DerivingStrategies
+    DerivingVia
+    DuplicateRecordFields
+    LambdaCase
+    OverloadedRecordDot
+    OverloadedStrings
+
 library
-  import:             warnings
+  import:
+    warnings,
+    extensions
+
   exposed-modules:
+    Dars.Action
+    Dars.API
+    Dars.API.Auth
+    Dars.API.Common
+    Dars.Config
     Dars.Prelude
     Dars.SQL
+    Dars.SQL.QQ
+    Dars.SQL.User
+    Dars.Types.Id
+    Dars.Types.User
+    Dars.Actions.User
 
   build-depends:
     , aeson
+    , aeson-pretty
     , base
+    , bytestring
+    , directory
     , hasql
     , hasql-migration
     , hasql-transaction
+    , http-api-data
     , mtl
     , network-uri
+    , password
+    , servant
+    , servant-auth-server
+    , servant-multipart
+    , servant-server
     , text
+    , unliftio
+    , uuid
 
-  hs-source-dirs:     src
-  default-extensions:
-    DerivingStrategies
-    LambdaCase
-    OverloadedStrings
-  default-language:   GHC2021
+  hs-source-dirs:   src
+  default-language: GHC2021
 
 executable dars-server
-  import:           warnings
   main-is:          Main.hs
+  import:
+    warnings,
+    extensions
+
   build-depends:
     , base
     , dars-server
+    , optparse-generic
+    , servant-server
+    , wai
+    , wai-cors
+    , wai-extra
+    , wai-logger
+    , warp
 
   hs-source-dirs:   app
   default-language: GHC2021
