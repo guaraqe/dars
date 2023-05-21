@@ -24,6 +24,8 @@ let
         withHoogle = true;
         buildInputs =
           [
+            nodePackages.npm
+            nodePackages.node2nix
             # Haskell
             localHaskellPackages.ghc
             localHaskellPackages.cabal-install

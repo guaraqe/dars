@@ -41,10 +41,10 @@ gui-build-optimized: ## Build the GUI into www/app.min.js
 ghcid: ## Launch ghcid for dars-server.
 	ghcid --command 'cabal repl dars-server --ghc-options="-O0"'
 
-.PHONY: ghcid-api
+.PHONY: ghcid
 
 ghcid-server: ## Launch ghcid for the server executable.
-	ghcid --command 'cabal repl dars-server:dars-server --ghc-options="-O0"'
+	ghcid --command 'cabal repl dars-server:exe:dars-server --ghc-options="-O0"'
 
 .PHONY: ghcid-server
 
@@ -53,6 +53,17 @@ format-haskell: ## Format the Haskell code
 	cabal-fmt --inplace $$(git ls-files '*.cabal')
 
 .PHONY: format-haskell
+
+################################################################################
+# Database
+
+postgres: ## Launch psql with the correct arguments.
+	database/run-postgresql.sh
+
+psql: ## Launch psql with the correct arguments.
+	PGHOST=localhost PGPORT=5432 PGDATABASE=dars PGUSER=dars PGPASSWORD=dars psql
+
+.PHONY: psql
 
 ################################################################################
 # Help
